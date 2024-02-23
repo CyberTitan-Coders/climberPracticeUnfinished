@@ -104,13 +104,14 @@ public class Robot extends TimedRobot {
 
    RelativeEncoder climberEncoderA=climberA.getEncoder(SparkRelativeEncoder.Type.kHallSensor,42);
 // RelativeEncoder climberEncoderB=climberB.getEncoder(SparkRelativeEncoder.Type.kHallSensor,42);
-
+   
+   
 
   @Override
   public void robotInit() {
     Controller[kDriver] = driverController;
     Controller[kOperator] = operatorController;
-
+    climberEncoderA.setPosition(0);
     
      
     
@@ -146,13 +147,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
+//go up
     if (Controller[kDriver].getRawButton(kXButton))
     climberA.set(kClimberMotorSpd);
    else
     climberA.set(0);
-
-    if (Controller[kDriver].getRawButton(kYButton) && climberEncoderA.getPosition()<=0)
+//go down
+    if (Controller[kDriver].getRawButton(kYButton) && climberEncoderA.getPosition()>0)
     climberA.set(-kClimberMotorSpd);
    else
     climberA.set(0);
